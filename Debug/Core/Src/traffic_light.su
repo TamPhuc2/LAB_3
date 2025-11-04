@@ -1,0 +1,13 @@
+traffic_light.c:10:6:setRed_0	8	static
+traffic_light.c:15:6:setYellow_0	8	static
+traffic_light.c:20:6:setGreen_0	8	static
+traffic_light.c:26:6:setRed_1	8	static
+traffic_light.c:31:6:setYellow_1	8	static
+traffic_light.c:36:6:setGreen_1	8	static
+traffic_light.c:43:6:Modify_RedLed_0	8	static
+traffic_light.c:48:6:Modify_YellowLed_0	8	static
+traffic_light.c:53:6:Modify_GreenLed_0	8	static
+traffic_light.c:60:6:Modify_RedLed_1	8	static
+traffic_light.c:65:6:Modify_YellowLed_1	8	static
+traffic_light.c:70:6:Modify_GreenLed_1	8	static
+traffic_light.c:76:6:reset_All_Led	8	static
