@@ -8,7 +8,7 @@
 
 int timer_counter[NumOfTimer] = {0};
 int timer_flag[NumOfTimer] = {0};
-int TICK = 20;
+int TICK = 1;
 
 void setTimer(int index, int duration){
 	timer_counter[index] = duration / TICK;

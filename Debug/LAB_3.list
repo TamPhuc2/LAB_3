@@ -3359,17 +3359,17 @@ static void MX_TIM2_Init(void)
  8001794:	4b1d      	ldr	r3, [pc, #116]	; (800180c <MX_TIM2_Init+0x94>)
  8001796:	f04f 4280 	mov.w	r2, #1073741824	; 0x40000000
  800179a:	601a      	str	r2, [r3, #0]
-  htim2.Init.Prescaler = 7999;
+  htim2.Init.Prescaler = 799;
  800179c:	4b1b      	ldr	r3, [pc, #108]	; (800180c <MX_TIM2_Init+0x94>)
- 800179e:	f641 723f 	movw	r2, #7999	; 0x1f3f
+ 800179e:	f240 321f 	movw	r2, #799	; 0x31f
  80017a2:	605a      	str	r2, [r3, #4]
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
  80017a4:	4b19      	ldr	r3, [pc, #100]	; (800180c <MX_TIM2_Init+0x94>)
  80017a6:	2200      	movs	r2, #0
  80017a8:	609a      	str	r2, [r3, #8]
-  htim2.Init.Period = 19;
+  htim2.Init.Period = 9;
  80017aa:	4b18      	ldr	r3, [pc, #96]	; (800180c <MX_TIM2_Init+0x94>)
- 80017ac:	2213      	movs	r2, #19
+ 80017ac:	2209      	movs	r2, #9
  80017ae:	60da      	str	r2, [r3, #12]
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
  80017b0:	4b16      	ldr	r3, [pc, #88]	; (800180c <MX_TIM2_Init+0x94>)
@@ -3618,7 +3618,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 
 int timer_counter[NumOfTimer] = {0};
 int timer_flag[NumOfTimer] = {0};
-int TICK = 20;
+int TICK = 1;
 
 void setTimer(int index, int duration){
  8001900:	b480      	push	{r7}
