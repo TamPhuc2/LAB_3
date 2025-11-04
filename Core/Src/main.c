@@ -104,18 +104,18 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   setTimer(0, 1000);
   setTimer(3, 250);
-  setTimer(5, 50);
-  setTimer(6, 50);
+  setTimer(5, 10);
+  setTimer(6, 10);
 
   while (1)
   {
 	  //led blinky per second
-//	  if(timer_flag[0] == 1)
-//	  {
-//		  timer_flag[0] = 0;
-//		  setTimer(0, 1000);
-//		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-//	  }
+	  if(timer_flag[0] == 1)
+	  {
+		  timer_flag[0] = 0;
+		  setTimer(0, 1000);
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  }
 
 
 	  FSM_TL_control_run(); //button

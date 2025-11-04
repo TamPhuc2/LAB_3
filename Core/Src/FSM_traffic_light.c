@@ -31,14 +31,8 @@ void FSM_TL_control_run(){
 			setTimer(8, 250);
 			setTimer(9, 250);
 			modify_red_timer = red_timer;
-
-
-			HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
 		}
-		if(isButton0PressednHold() == 1)
-		{
-			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
-		}
+
 
 		break;
 	case MODE_2: // MODIFY RED LEDS
@@ -55,8 +49,6 @@ void FSM_TL_control_run(){
 			setTimer(8, 250);
 			setTimer(9, 250);
 			modify_yellow_timer = yellow_timer;
-
-			HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
 		}
 		//Increase modify_red_timer
 		if(isButton1Pressed() == 1)
@@ -82,8 +74,6 @@ void FSM_TL_control_run(){
 			setTimer(8, 250);
 			setTimer(9, 250);
 			modify_green_timer = green_timer;
-
-			HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
 		}
 		//increase modify_yellow_timer
 		if(isButton1Pressed() == 1)
@@ -115,7 +105,11 @@ void FSM_TL_control_run(){
 				green_timer = red_timer - yellow_timer;
 			}
 
-			HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
+			if(red_timer > 99) {
+				red_timer = 5;
+				yellow_timer = 2;
+				green_timer = 3;
+			}
 		}
 		if(isButton0PressednHold())
 			HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
