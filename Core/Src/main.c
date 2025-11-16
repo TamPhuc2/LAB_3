@@ -107,6 +107,9 @@ int main(void)
   setTimer(5, 10);
   setTimer(6, 10);
 
+  mode = INIT;
+  TL_status = INIT;
+  TL_status_1 = INIT;
   while (1)
   {
 	  //led blinky per second
@@ -118,10 +121,9 @@ int main(void)
 	  }
 
 
+
 	  FSM_TL_control_run(); //button
-
 	  FSM_automatic_run();//light traffic
-
 	  FSM_display7SEG_0();//
 	  FSM_display7SEG_1();
 

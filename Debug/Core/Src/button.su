@@ -1,9 +1,9 @@
-button.c:29:5:isButton0Pressed	4	static
+button.c:29:6:isButton0Pressed	4	static
 button.c:36:5:isButton1Pressed	4	static
 button.c:43:5:isButton2Pressed	4	static
 button.c:53:5:isButton0PressednHold	4	static
 button.c:60:5:isButton1PressednHold	4	static
 button.c:67:5:isButton2PressednHold	4	static
 button.c:75:6:getKeyInput0	8	static
-button.c:105:6:getKeyInput1	8	static
-button.c:135:6:getKeyInput2	8	static
+button.c:116:6:getKeyInput1	8	static
+button.c:146:6:getKeyInput2	8	static

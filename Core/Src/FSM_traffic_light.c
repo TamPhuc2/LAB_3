@@ -32,8 +32,6 @@ void FSM_TL_control_run(){
 			setTimer(9, 250);
 			modify_red_timer = red_timer;
 		}
-
-
 		break;
 	case MODE_2: // MODIFY RED LEDS
 		if(isButton0Pressed() == 1)
@@ -90,7 +88,7 @@ void FSM_TL_control_run(){
 		{
 			status_7SEG_0 = COUNTDOWN_0;
 			status_7SEG_1 = COUNTDOWN_0;
-			mode = MODE_1;
+			mode = MODE_1;//here
 			TL_status = INIT;
 			TL_status_1 = INIT;
 			status_7SEG_0 = COUNTDOWN_0;
@@ -105,14 +103,12 @@ void FSM_TL_control_run(){
 				green_timer = red_timer - yellow_timer;
 			}
 
-			if(red_timer > 99) {
+			if(red_timer > 99 || yellow_timer > green_timer) {
 				red_timer = 5;
 				yellow_timer = 2;
 				green_timer = 3;
 			}
 		}
-		if(isButton0PressednHold())
-			HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
 		//increase modify_green_timer
 		if(isButton1Pressed() == 1)
 		{

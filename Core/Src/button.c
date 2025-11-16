@@ -26,13 +26,13 @@ int KeyReg3[3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};//previous stable st
 int timerForKeyPress = 200;//press and hold 2second
 
 //pressed
-int isButton0Pressed(){
-	if(button0_flag == 1){
-		button0_flag = 0;
-		return 1;
+	int isButton0Pressed(){
+		if(button0_flag == 1){
+			button0_flag = 0;
+			return 1;
+		}
+		return 0;
 	}
-	return 0;
-}
 int isButton1Pressed(){
 	if(button1_flag == 1){
 		button1_flag = 0;
@@ -88,16 +88,27 @@ void getKeyInput0(){
 				button0_flag = 1;
 				timerForKeyPress = 200;
 			}
-			//else button0_flag = 0;
+			else button0_flag = 0;
 		}
 		//press and hold
+//		else
+//		{
+//			timerForKeyPress--;
+//			if(timerForKeyPress <= 0)
+//			{
+//				button0_flag_hold = 1;
+//				KeyReg3[0] = NORMAL_STATE;
+//			}
+//		}
 		else
 		{
-			timerForKeyPress--;
-			if(timerForKeyPress <= 0)
-			{
-				button0_flag_hold = 1;
-				KeyReg3[0] = NORMAL_STATE;
+			if (KeyReg2[0] == PRESSED_STATE) {
+				if (timerForKeyPress > 0) {
+					timerForKeyPress--;
+					if (timerForKeyPress == 0) {
+						button0_flag_hold = 1;
+					}
+				}
 			}
 		}
 	}

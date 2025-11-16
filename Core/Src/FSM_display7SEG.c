@@ -20,7 +20,7 @@ void FSM_display7SEG_0(){
 			update7SEG_0(indexLed_0);
 			indexLed_0++;
 			if(indexLed_0 == 2) indexLed_0 = 0;
-			setTimer(5, 500);
+			setTimer(5, 250);
 		}
 
 		break;
@@ -32,7 +32,7 @@ void FSM_display7SEG_0(){
 			update7SEG_0(indexLed_0);
 			indexLed_0++;
 			if(indexLed_0 == 2) indexLed_0 = 0;
-			setTimer(5, 500);
+			setTimer(5, 250);
 		}
 
 		break;
@@ -44,7 +44,7 @@ void FSM_display7SEG_0(){
 			update7SEG_0(indexLed_0);
 			indexLed_0++;
 			if(indexLed_0 == 2) indexLed_0 = 0;
-			setTimer(5, 500);
+			setTimer(5, 250);
 		}
 		break;
 	case LEDMODE4_0:
@@ -55,7 +55,7 @@ void FSM_display7SEG_0(){
 			update7SEG_0(indexLed_0);
 			indexLed_0++;
 			if(indexLed_0 == 2) indexLed_0 = 0;
-			setTimer(5, 500);
+			setTimer(5, 250);
 		}
 		break;
 	default:
@@ -71,7 +71,7 @@ void FSM_display7SEG_1(){
 			update7SEG_1(indexLed_1);
 			indexLed_1++;
 			if(indexLed_1 == 2) indexLed_1 = 0;
-			setTimer(6, 500);
+			setTimer(6, 250);
 		}
 		break;
 	case LEDMODE2_0:
@@ -83,7 +83,7 @@ void FSM_display7SEG_1(){
 			update7SEG_1(indexLed_1);
 			indexLed_1++;
 			if(indexLed_1 == 2) indexLed_1 = 0;
-			setTimer(6, 500);
+			setTimer(6, 250);
 		}
 		break;
 	case LEDMODE3_0:
@@ -94,7 +94,7 @@ void FSM_display7SEG_1(){
 			update7SEG_1(indexLed_1);
 			indexLed_1++;
 			if(indexLed_1 == 2) indexLed_1 = 0;
-			setTimer(6, 500);
+			setTimer(6, 250);
 		}
 		break;
 	case LEDMODE4_0:
@@ -105,7 +105,7 @@ void FSM_display7SEG_1(){
 			update7SEG_1(indexLed_1);
 			indexLed_1++;
 			if(indexLed_1 == 2) indexLed_1 = 0;
-			setTimer(6 , 500);
+			setTimer(6 , 250);
 		}
 		break;
 	}

@@ -23,13 +23,11 @@ void subTimerRun(int index){
 		}
 	}
 }
-
-
 void timerRun(){
 	subTimerRun(0);//led blinky
 	subTimerRun(1);//FSM_automatic_run_0 led
 	subTimerRun(2);//FSM_automatic_run_1 led
-	subTimerRun(3);//all led 2HZ
+	//subTimerRun(3);//all led 2HZ
 	subTimerRun(4);//counter led_timer_0
 	subTimerRun(5);//display 7SEG_0
 	subTimerRun(6);//display 7SEG_1

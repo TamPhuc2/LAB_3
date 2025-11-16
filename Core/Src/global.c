@@ -8,8 +8,8 @@
 #include "global.h"
 
 //MODE traffic light
-int mode = MODE_1;//MODE_1 -> MODE_2 -> MODE_3 -> MODE 4 -> MODE_1
-
+//int mode = MODE_1;//MODE_1 -> MODE_2 -> MODE_3 -> MODE 4 -> MODE_1
+int mode = INIT;
 //state of traffic light
 int TL_status = INIT; //INIT -> RED -> GREEN -> YELLOW
 int TL_status_1 = INIT;//INIT -> GREEN -> YELLOW -> RED
