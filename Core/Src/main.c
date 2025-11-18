@@ -30,6 +30,7 @@
 #include "FSM_automatic.h"
 #include "FSM_traffic_light.h"
 #include "FSM_display7SEG.h"
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,7 +64,33 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void ledPinkBlinky(){
+	HAL_GPIO_TogglePin(LED_PINK_GPIO_Port, LED_PINK_Pin);
+}
+void ledRedBlinky(){
+	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+}
+void ledBlueBlinky(){
+	HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+}
+void ledOrangeBlinky(){
+	HAL_GPIO_TogglePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin);
+}
+//void Task_display7SEG(){
+//	FSM_display7SEG_0();
+//	FSM_display7SEG_1();
+//}
+void Task_getKeyInput(){
+	getKeyInput0();
+	getKeyInput1();
+	getKeyInput2();
+}
+void Task_TrafficLight_controller(){
+	FSM_TL_control_run();
+	FSM_automatic_run();
+	FSM_display7SEG_0();
+	FSM_display7SEG_1();
+}
 /* USER CODE END 0 */
 
 /**
@@ -96,38 +123,47 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
-
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  setTimer(0, 1000);
-  setTimer(3, 250);
-  setTimer(5, 10);
-  setTimer(6, 10);
+  SCH_Init();
 
   mode = INIT;
   TL_status = INIT;
   TL_status_1 = INIT;
+  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
+  HAL_GPIO_WritePin(LED_PINK_GPIO_Port, LED_PINK_Pin, SET);
+  HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, SET);
+  HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin, SET);
+
+
+
+  //TASK LAB_3
+  //software_timer 10ms(1,1)
+  SCH_Add_Task(timerRun, 1, 1);
+  //Read button task(2,2)
+  SCH_Add_Task(Task_getKeyInput, 2, 1);
+
+  SCH_Add_Task(Task_TrafficLight_controller, 2, 2);
+  //FSM mode control(3,2)
+//  SCH_Add_Task(FSM_TL_control_run, 20 / TICK, 50 / TICK);
+//  //Display 7SEG(4,20)
+//  SCH_Add_Task(Task_display7SEG, 20 / TICK, 50 / TICK);
+//  //Display traffic light(5,20)
+//  SCH_Add_Task(FSM_automatic_run, 20 / TICK, 50 / TICK);
+
+  // TASK blinky led
+//  SCH_Add_Task(ledRedBlinky, 1000 / TICK, 500 / TICK);
+//  SCH_Add_Task(ledBlueBlinky, 1000 / TICK, 1000 / TICK);
+//  SCH_Add_Task(ledPinkBlinky, 1000 / TICK, 2000 / TICK);
+//  SCH_Add_Task(ledOrangeBlinky, 1000 / TICK, 3000 / TICK);
+
+
+  HAL_TIM_Base_Start_IT(&htim2);
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //led blinky per second
-	  if(timer_flag[0] == 1)
-	  {
-		  timer_flag[0] = 0;
-		  setTimer(0, 1000);
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-	  }
-
-
-
-	  FSM_TL_control_run(); //button
-	  FSM_automatic_run();//light traffic
-	  FSM_display7SEG_0();//
-	  FSM_display7SEG_1();
-
-	  HAL_Delay(5);
+	  SCH_Dispatch_Tasks();
 
     /* USER CODE END WHILE */
 
@@ -236,9 +272,9 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG1_3_Pin
-                          |SEG1_4_Pin|SEG1_5_Pin|SEG1_6_Pin|SEG3_Pin
-                          |SEG4_Pin|SEG5_Pin|SEG6_Pin|SEG1_0_Pin
-                          |SEG1_1_Pin|SEG1_2_Pin, GPIO_PIN_RESET);
+                          |SEG1_4_Pin|SEG1_5_Pin|SEG1_6_Pin|LED_BLUE_Pin
+                          |LED_ORANGE_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin
+                          |SEG6_Pin|SEG1_0_Pin|SEG1_1_Pin|SEG1_2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : BUTTON0_Pin BUTTON1_Pin BUTTON2_Pin */
   GPIO_InitStruct.Pin = BUTTON0_Pin|BUTTON1_Pin|BUTTON2_Pin;
@@ -258,13 +294,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin SEG1_3_Pin
-                           SEG1_4_Pin SEG1_5_Pin SEG1_6_Pin SEG3_Pin
-                           SEG4_Pin SEG5_Pin SEG6_Pin SEG1_0_Pin
-                           SEG1_1_Pin SEG1_2_Pin */
+                           SEG1_4_Pin SEG1_5_Pin SEG1_6_Pin LED_BLUE_Pin
+                           LED_ORANGE_Pin SEG3_Pin SEG4_Pin SEG5_Pin
+                           SEG6_Pin SEG1_0_Pin SEG1_1_Pin SEG1_2_Pin */
   GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG1_3_Pin
-                          |SEG1_4_Pin|SEG1_5_Pin|SEG1_6_Pin|SEG3_Pin
-                          |SEG4_Pin|SEG5_Pin|SEG6_Pin|SEG1_0_Pin
-                          |SEG1_1_Pin|SEG1_2_Pin;
+                          |SEG1_4_Pin|SEG1_5_Pin|SEG1_6_Pin|LED_BLUE_Pin
+                          |LED_ORANGE_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin
+                          |SEG6_Pin|SEG1_0_Pin|SEG1_1_Pin|SEG1_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -274,10 +310,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	timerRun();
-	getKeyInput0();
-	getKeyInput1();
-	getKeyInput2();
+	SCH_Update();
 }
 /* USER CODE END 4 */
 

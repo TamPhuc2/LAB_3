@@ -18,6 +18,7 @@
 
 #define ERROR		0
 
+#define TICKS		10
 
 // ------ mode -----
 #define INIT		1

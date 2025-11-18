@@ -7,13 +7,15 @@
 
 #include "FSM_display7SEG.h"
 
-int status_7SEG_0 = COUNTDOWN_0;
-int status_7SEG_1 = COUNTDOWN_0;
+int status_7SEG_0 = INIT;
+int status_7SEG_1 = INIT;
 
-//int modify_red_timer;
 
 void FSM_display7SEG_0(){
 	switch(status_7SEG_0){
+	case INIT:
+		status_7SEG_0 = COUNTDOWN_0;
+		setTimer(5, 10);
 	case COUNTDOWN_0:
 		if(timer_flag[5] == 1)
 		{
@@ -22,7 +24,6 @@ void FSM_display7SEG_0(){
 			if(indexLed_0 == 2) indexLed_0 = 0;
 			setTimer(5, 250);
 		}
-
 		break;
 	case LEDMODE2_0:
 		led_buffer0[0] = 0;
@@ -65,6 +66,9 @@ void FSM_display7SEG_0(){
 
 void FSM_display7SEG_1(){
 	switch(status_7SEG_1){
+	case INIT:
+		status_7SEG_1 = COUNTDOWN_0;
+		setTimer(6, 10);
 	case COUNTDOWN_0:
 		if(timer_flag[6] == 1)
 		{

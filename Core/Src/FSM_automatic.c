@@ -34,8 +34,8 @@ void FSM_automatic_run_0(){
 		if(timer_flag[1] == 1)
 		{
 			TL_status = AUTO_GREEN;
-			setTimer(1, green_timer * 1000);
 			temp_green_timer = green_timer;
+			setTimer(1, green_timer * 1000);
 		}
 		break;
 	case AUTO_GREEN:
@@ -130,7 +130,7 @@ void FSM_automatic_run_1(){
 		}
 		if(timer_flag[2] == 1)
 		{
-			TL_status_1 = INIT;
+			TL_status_1 = AUTO_GREEN;
 			setTimer(2, green_timer * 1000);
 			temp_green_timer_1 = green_timer;
 		}
@@ -200,7 +200,6 @@ void FSM_automatic_run_1(){
 		break;
 	}
 }
-
 void FSM_automatic_run(){
 	FSM_automatic_run_0();
 	FSM_automatic_run_1();

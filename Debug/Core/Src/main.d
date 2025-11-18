@@ -30,7 +30,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/display7SEG.h ../Core/Inc/FSM_traffic_light.h \
  ../Core/Inc/FSM_display7SEG.h ../Core/Inc/traffic_light.h \
  ../Core/Inc/global.h ../Core/Inc/FSM_automatic.h \
- ../Core/Inc/FSM_traffic_light.h ../Core/Inc/FSM_display7SEG.h
+ ../Core/Inc/FSM_traffic_light.h ../Core/Inc/FSM_display7SEG.h \
+ ../Core/Inc/scheduler.h
 
 ../Core/Inc/main.h:
 
@@ -115,3 +116,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/FSM_traffic_light.h:
 
 ../Core/Inc/FSM_display7SEG.h:
+
+../Core/Inc/scheduler.h:
