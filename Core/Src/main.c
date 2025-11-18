@@ -30,6 +30,7 @@
 #include "FSM_automatic.h"
 #include "FSM_traffic_light.h"
 #include "FSM_display7SEG.h"
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,7 +64,22 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void Task_getKeyInput(){
+	getKeyInput0();
+	getKeyInput1();
+	getKeyInput2();
+}
+void Task_TrafficLight_controller(){
+	FSM_TL_control_run();
+	FSM_automatic_run();
+}
+void Task_Display7SEG(){
+	FSM_display7SEG_0();
+	FSM_display7SEG_1();
+}
+void Task_LedBlinky(){
+	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+}
 /* USER CODE END 0 */
 
 /**
@@ -96,38 +112,46 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
+  mode = INIT;
+  TL_status = INIT;
+  TL_status_1 = INIT;
+  status_7SEG_0 = INIT;
+  status_7SEG_1 = INIT;
+
+  SCH_Init();
+  SCH_Add_Task(timerRun, 1, 1);
+  SCH_Add_Task(Task_getKeyInput, 2, 1);
+  SCH_Add_Task(Task_TrafficLight_controller, 3, 5);
+  SCH_Add_Task(Task_Display7SEG, 4, 5);
+
+  SCH_Add_Task(Task_LedBlinky, 100, 50);
+
   HAL_TIM_Base_Start_IT(&htim2);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(0, 1000);
-  setTimer(3, 250);
-  setTimer(5, 10);
-  setTimer(6, 10);
 
-  mode = INIT;
-  TL_status = INIT;
-  TL_status_1 = INIT;
+
   while (1)
   {
-	  //led blinky per second
-	  if(timer_flag[0] == 1)
-	  {
-		  timer_flag[0] = 0;
-		  setTimer(0, 1000);
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-	  }
-
-
-
-	  FSM_TL_control_run(); //button
-	  FSM_automatic_run();//light traffic
-	  FSM_display7SEG_0();//
-	  FSM_display7SEG_1();
-
-	  HAL_Delay(5);
+	  SCH_Dispatch_Tasks();
+//	  //led blinky per second
+//	  if(timer_flag[0] == 1)
+//	  {
+//		  timer_flag[0] = 0;
+//		  setTimer(0, 1000);
+//		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+//	  }
+//
+//
+//
+//	  FSM_TL_control_run(); //button
+//	  FSM_automatic_run();//light traffic
+//	  FSM_display7SEG_0();//
+//	  FSM_display7SEG_1();
 
     /* USER CODE END WHILE */
 
@@ -274,10 +298,11 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	timerRun();
-	getKeyInput0();
-	getKeyInput1();
-	getKeyInput2();
+//	timerRun();
+//	getKeyInput0();
+//	getKeyInput1();
+//	getKeyInput2();
+	SCH_Update();
 }
 /* USER CODE END 4 */
 

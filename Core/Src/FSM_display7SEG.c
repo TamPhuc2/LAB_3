@@ -14,6 +14,10 @@ int status_7SEG_1 = COUNTDOWN_0;
 
 void FSM_display7SEG_0(){
 	switch(status_7SEG_0){
+	case INIT:
+		status_7SEG_0 = COUNTDOWN_0;
+		setTimer(5, 10);
+		break;
 	case COUNTDOWN_0:
 		if(timer_flag[5] == 1)
 		{
@@ -65,6 +69,10 @@ void FSM_display7SEG_0(){
 
 void FSM_display7SEG_1(){
 	switch(status_7SEG_1){
+	case INIT:
+		status_7SEG_1 = COUNTDOWN_0;
+		setTimer(6, 10);
+		break;
 	case COUNTDOWN_0:
 		if(timer_flag[6] == 1)
 		{
