@@ -89,6 +89,9 @@ void Task_LedBlueBlinky(){
 void Task_LedOrangeBlinky(){
 	HAL_GPIO_TogglePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin);
 }
+void Task_LedPurpleBlinky(){
+	HAL_GPIO_TogglePin(LED_PURPLE_GPIO_Port, LED_PURPLE_Pin);
+}
 /* USER CODE END 0 */
 
 /**
@@ -133,17 +136,19 @@ int main(void)
   HAL_GPIO_WritePin(LED_PINK_GPIO_Port, LED_PINK_Pin, SET);
   HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, SET);
   HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin, SET);
+  HAL_GPIO_WritePin(LED_PURPLE_GPIO_Port, LED_PURPLE_Pin, SET);
 
   SCH_Init();
   SCH_Add_Task(timerRun, 0, 1);
   SCH_Add_Task(Task_getKeyInput, 0, 1);
-  SCH_Add_Task(Task_TrafficLight_controller, 0, 2);
-  SCH_Add_Task(Task_Display7SEG, 0, 2);
+  SCH_Add_Task(Task_TrafficLight_controller, 1, 2);
+  SCH_Add_Task(Task_Display7SEG, 1, 2);
 
   SCH_Add_Task(Task_LedRedBlinky, 100, 50);
   SCH_Add_Task(Task_LedBlueBlinky, 100, 100);
   SCH_Add_Task(Task_LedPinkBlinky, 100, 150);
   SCH_Add_Task(Task_LedOrangeBlinky, 100, 200);
+  SCH_Add_Task(Task_LedPurpleBlinky, 100, 250);
 
   /* USER CODE END 2 */
 
@@ -270,9 +275,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_PINK_Pin|LED_RED_Pin|RED1_Pin|YELLOW1_Pin
-                          |GREEN1_Pin|RED2_Pin|YELLOW2_Pin|GREEN2_Pin
-                          |EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_PURPLE_Pin|LED_PINK_Pin|LED_RED_Pin|RED1_Pin
+                          |YELLOW1_Pin|GREEN1_Pin|RED2_Pin|YELLOW2_Pin
+                          |GREEN2_Pin|EN0_Pin|EN1_Pin|EN2_Pin
+                          |EN3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG1_3_Pin
@@ -280,21 +286,23 @@ static void MX_GPIO_Init(void)
                           |LED_ORANGE_Pin|SEG3_Pin|SEG4_Pin|SEG5_Pin
                           |SEG6_Pin|SEG1_0_Pin|SEG1_1_Pin|SEG1_2_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pins : LED_PURPLE_Pin LED_PINK_Pin LED_RED_Pin RED1_Pin
+                           YELLOW1_Pin GREEN1_Pin RED2_Pin YELLOW2_Pin
+                           GREEN2_Pin EN0_Pin EN1_Pin EN2_Pin
+                           EN3_Pin */
+  GPIO_InitStruct.Pin = LED_PURPLE_Pin|LED_PINK_Pin|LED_RED_Pin|RED1_Pin
+                          |YELLOW1_Pin|GREEN1_Pin|RED2_Pin|YELLOW2_Pin
+                          |GREEN2_Pin|EN0_Pin|EN1_Pin|EN2_Pin
+                          |EN3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pins : BUTTON0_Pin BUTTON1_Pin BUTTON2_Pin */
   GPIO_InitStruct.Pin = BUTTON0_Pin|BUTTON1_Pin|BUTTON2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LED_PINK_Pin LED_RED_Pin RED1_Pin YELLOW1_Pin
-                           GREEN1_Pin RED2_Pin YELLOW2_Pin GREEN2_Pin
-                           EN0_Pin EN1_Pin EN2_Pin EN3_Pin */
-  GPIO_InitStruct.Pin = LED_PINK_Pin|LED_RED_Pin|RED1_Pin|YELLOW1_Pin
-                          |GREEN1_Pin|RED2_Pin|YELLOW2_Pin|GREEN2_Pin
-                          |EN0_Pin|EN1_Pin|EN2_Pin|EN3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin SEG1_3_Pin

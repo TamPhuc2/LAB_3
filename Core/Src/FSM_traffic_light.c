@@ -32,6 +32,20 @@ void FSM_TL_control_run(){
 			setTimer(9, 250);
 			modify_red_timer = red_timer;
 		}
+		if(isButton0Pressed() == 1 && isButton0PressednHold() == 1)
+		{
+			//switch to mode 2
+			mode = MODE_2;
+			status_7SEG_0 = LEDMODE2_0;
+			status_7SEG_1 = LEDMODE2_0;
+			//set modify state for LED
+			TL_status = MODIFY_RED;
+			TL_status_1 = MODIFY_RED;
+			reset_All_Led();
+			setTimer(8, 250);
+			setTimer(9, 250);
+			modify_red_timer = red_timer;
+		}
 		break;
 	case MODE_2: // MODIFY RED LEDS
 		if(isButton0Pressed() == 1)

@@ -91,26 +91,26 @@ void getKeyInput0(){
 			else button0_flag = 0;
 		}
 		//press and hold
-//		else
-//		{
-//			timerForKeyPress--;
-//			if(timerForKeyPress <= 0)
-//			{
-//				button0_flag_hold = 1;
-//				KeyReg3[0] = NORMAL_STATE;
-//			}
-//		}
 		else
 		{
-			if (KeyReg2[0] == PRESSED_STATE) {
-				if (timerForKeyPress > 0) {
-					timerForKeyPress--;
-					if (timerForKeyPress == 0) {
-						button0_flag_hold = 1;
-					}
-				}
+			timerForKeyPress--;
+			if(timerForKeyPress <= 0)
+			{
+				button0_flag_hold = 1;
+				KeyReg3[0] = NORMAL_STATE;
 			}
 		}
+//		else
+//		{
+//			if (KeyReg2[0] == PRESSED_STATE) {
+//				if (timerForKeyPress > 0) {
+//					timerForKeyPress--;
+//					if (timerForKeyPress == 0) {
+//						button0_flag_hold = 1;
+//					}
+//				}
+//			}
+//		}
 	}
 }
 void getKeyInput1(){

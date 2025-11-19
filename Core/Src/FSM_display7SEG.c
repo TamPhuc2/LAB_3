@@ -7,10 +7,6 @@
 
 #include "FSM_display7SEG.h"
 
-int status_7SEG_0 = COUNTDOWN_0;
-int status_7SEG_1 = COUNTDOWN_0;
-
-//int modify_red_timer;
 
 void FSM_display7SEG_0(){
 	switch(status_7SEG_0){

@@ -13,7 +13,8 @@ int mode = INIT;
 //state of traffic light
 int TL_status = INIT; //INIT -> RED -> GREEN -> YELLOW
 int TL_status_1 = INIT;//INIT -> GREEN -> YELLOW -> RED
-
+int status_7SEG_0 = INIT;
+int status_7SEG_1 = INIT;
 //timer of each traffic light (second)
 int red_timer = 5;
 int yellow_timer = 2;
