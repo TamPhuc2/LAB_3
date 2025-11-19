@@ -108,7 +108,6 @@ void FSM_automatic_run_0(){
 void FSM_automatic_run_1(){
 	switch(TL_status_1){
 	case INIT:
-
 		TL_status_1 = AUTO_GREEN;
 		temp_green_timer_1 =  green_timer;
 		setTimer(2, green_timer * 1000);

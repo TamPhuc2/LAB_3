@@ -131,6 +131,7 @@ uint32_t SCH_Delete_Task(uint32_t task_ID){
 	//check valid taskID
 	if(task_ID == NO_TASK_ID) return NO_TASK_ID;
 
+
 	for(task_Index = 0; task_Index < SCH_MAX_TASKS; task_Index++){
 		if(SCH_task_G[task_Index].Task_ID == task_ID){
 			//sum delay of deleted tasks

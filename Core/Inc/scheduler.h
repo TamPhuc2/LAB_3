@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define SCH_MAX_TASKS	8
+#define SCH_MAX_TASKS	10
 #define NO_TASK_ID		0
 
 typedef struct{
