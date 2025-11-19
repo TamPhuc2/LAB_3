@@ -47,10 +47,13 @@ void SCH_Update(void){
 	}
 }
 //Add task function ----- O(n^2)
-uint32_t SCH_Add_Task(void (*pFunction)(), uint32_t delay, uint32_t period){
+uint32_t SCH_Add_Task(void (*pFunction)(), uint32_t delay_ms, uint32_t period_ms){
 	uint8_t newTaskIndex = 0; //new position task
 	uint32_t sumDelay = 0; //[0 -> added position]
 	uint32_t newDelay = 0; //delay time for new task
+
+	uint32_t delay = delay_ms / TICK;
+	uint32_t period = period_ms / TICK;
 
 	for(newTaskIndex = 0; newTaskIndex < SCH_MAX_TASKS; newTaskIndex++){
 		//check exist task
@@ -77,7 +80,6 @@ uint32_t SCH_Add_Task(void (*pFunction)(), uint32_t delay, uint32_t period){
 			SCH_task_G[newTaskIndex].Delay = newDelay;
 			SCH_task_G[newTaskIndex].Period = period;
 			SCH_task_G[newTaskIndex].Task_ID = getNewTaskID();
-			//SCH_task_G[newTaskIndex].RunMe = 0;
 
 			//set RUMME flag
 			if(SCH_task_G[newTaskIndex].Delay == 0){
@@ -120,17 +122,16 @@ void SCH_Dispatch_Tasks(void){
 
 		//add period task back to array
 		if(currentTask.Period != 0){
-			SCH_Add_Task(currentTask.pTask, currentTask.Period, currentTask.Period);
+			SCH_Add_Task(currentTask.pTask, currentTask.Period * TICK, currentTask.Period * TICK);
 		}
 	}
 }
 //Delete task function ----- O(n^2)
 uint32_t SCH_Delete_Task(uint32_t task_ID){
-	uint8_t task_Index;
-	uint8_t temp_Index;
 	//check valid taskID
 	if(task_ID == NO_TASK_ID) return NO_TASK_ID;
-
+	uint8_t task_Index;
+	uint8_t temp_Index;
 
 	for(task_Index = 0; task_Index < SCH_MAX_TASKS; task_Index++){
 		if(SCH_task_G[task_Index].Task_ID == task_ID){
@@ -148,7 +149,6 @@ uint32_t SCH_Delete_Task(uint32_t task_ID){
 				SCH_task_G[temp_Index].pTask = SCH_task_G[temp_Index + 1].pTask;
 				SCH_task_G[temp_Index].Task_ID = SCH_task_G[temp_Index + 1].Task_ID;
 			}
-
 			//set init task
 			SCH_task_G[temp_Index].pTask = NULL;
 			SCH_task_G[temp_Index].Delay = 0;

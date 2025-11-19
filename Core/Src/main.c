@@ -139,16 +139,16 @@ int main(void)
   HAL_GPIO_WritePin(LED_PURPLE_GPIO_Port, LED_PURPLE_Pin, SET);
 
   SCH_Init();
-  SCH_Add_Task(timerRun, 0, 1);
-  SCH_Add_Task(Task_getKeyInput, 0, 1);
-  SCH_Add_Task(Task_TrafficLight_controller, 1, 2);
-  SCH_Add_Task(Task_Display7SEG, 1, 2);
+  SCH_Add_Task(timerRun, 0, 10);
+  SCH_Add_Task(Task_getKeyInput, 0, 10);
+  SCH_Add_Task(Task_TrafficLight_controller, 10, 20);
+  SCH_Add_Task(Task_Display7SEG, 10, 20);
 
-  SCH_Add_Task(Task_LedRedBlinky, 100, 50);
-  SCH_Add_Task(Task_LedBlueBlinky, 100, 100);
-  SCH_Add_Task(Task_LedPinkBlinky, 100, 150);
-  SCH_Add_Task(Task_LedOrangeBlinky, 100, 200);
-  SCH_Add_Task(Task_LedPurpleBlinky, 100, 250);
+  SCH_Add_Task(Task_LedRedBlinky, 1000, 500);
+  SCH_Add_Task(Task_LedBlueBlinky, 1000, 1000);
+  SCH_Add_Task(Task_LedPinkBlinky, 1000, 1500);
+  SCH_Add_Task(Task_LedOrangeBlinky, 1000, 2000);
+  SCH_Add_Task(Task_LedPurpleBlinky, 1000, 2500);
 
   /* USER CODE END 2 */
 

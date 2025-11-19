@@ -29,9 +29,9 @@ void timerRun(){
 	subTimerRun(2);//FSM_automatic_run_1 led
 	//subTimerRun(3);//all led 2HZ
 	subTimerRun(4);//counter led_timer_0
+	subTimerRun(7);//counter led_timer_1
 	subTimerRun(5);//display 7SEG_0
 	subTimerRun(6);//display 7SEG_1
-	subTimerRun(7);//counter led_timer_1
 	subTimerRun(8);//modify red led_0
 	subTimerRun(9);//modify red led_1
 }
